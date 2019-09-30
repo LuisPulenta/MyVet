@@ -37,7 +37,7 @@ namespace MyVet.Web.Data.Entities
         //TODO: replace the correct URL for the image
         public string ImageFullPath => string.IsNullOrEmpty(ImageUrl)
             ? null
-            : $"http://keypress.serveftp.net:88/MyVetApi{ImageUrl.Substring(1)}";
+            : $"http://keypress.serveftp.net:88/MyVet{ImageUrl.Substring(1)}";
 
         [Display(Name = "Fecha Nacim.")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]

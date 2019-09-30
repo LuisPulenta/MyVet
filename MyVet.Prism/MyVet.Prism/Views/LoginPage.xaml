@@ -16,7 +16,11 @@
            Text="{Binding Password}" />
     <ActivityIndicator IsRunning="{Binding IsRunning}"
                        VerticalOptions="CenterAndExpand" />
-    <Button Command="{Binding LoginCommand}"
+    <Button BackgroundColor="Blue"
+            TextColor="White"
+            CornerRadius="23"
+            HeightRequest="46"
+            Command="{Binding LoginCommand}"
             IsEnabled="{Binding IsEnabled}"
             Text="Login" />
   </StackLayout>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet.Prism.Views.PetsPage"
+             BackgroundColor="Silver"
+             Title="{Binding Title}">
+  <StackLayout Padding="10">
+    <ListView HasUnevenRows="True"
+              SeparatorVisibility="None"
+              IsRefreshing="{Binding IsRefreshing}"
+              ItemsSource="{Binding Pets}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Frame CornerRadius="20"
+                   HasShadow="True"
+                   Margin="0,0,0,5">
+              <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectPetCommand}" />
+              </Frame.GestureRecognizers>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ffimageloading:CachedImage Grid.Column="0"
+                                            Source="{Binding ImageUrl}"
+                                            LoadingPlaceholder="LoaderImage"
+                                            ErrorPlaceholder="ErrorImage"
+                                            CacheDuration="50"
+                                            RetryCount="3"
+                                            RetryDelay="600"
+                                            DownsampleToViewSize="true"
+                                            WidthRequest="100" />
+                <StackLayout Grid.Column="1"
+                             VerticalOptions="Center">
+                  <Label FontAttributes="Bold"
+                         Text="Nombre"
+                         TextColor="Blue"></Label>
+                  <Label FontAttributes="Bold"
+                         Text="Raza"
+                         TextColor="Blue"></Label>
+                  <Label FontAttributes="Bold"
+                         Text="Fec.Nac."
+                         TextColor="Blue"></Label>
+                </StackLayout>
+                <StackLayout Grid.Column="2"
+                             VerticalOptions="Center">
+                  <Label Text="{Binding Name}"
+                         FontAttributes="Bold"
+                         TextColor="Red"></Label>
+                  <Label Text="{Binding Race}"
+                         TextColor="Black"></Label>
+                  <Label Text="{Binding Born, StringFormat='{0:yyyy/MM/dd}'}"
+                         TextColor="Black"></Label>
+                </StackLayout>
+                <Image Grid.Column="3"
+                       Source="ic_chevron_right"
+                       VerticalOptions="Center"
+                       WidthRequest="40"></Image>
+              </Grid>
+            </Frame>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

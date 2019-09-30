@@ -110,8 +110,8 @@ namespace MyVet.Common.Services
             {
                 return false;
             }
-
-            return await CrossConnectivity.Current.IsRemoteReachable(url);
+            return true;
+            //return await CrossConnectivity.Current.IsRemoteReachable(url);
         }
 
     }
