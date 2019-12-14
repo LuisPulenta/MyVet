@@ -9,7 +9,7 @@ namespace MyVet.Web.Data.Entities
 
         //public ServiceType ServiceType { get; set; }
 
-        [Display(Name = "Descripción*")]
+        [Display(Name = "Descripción")]
         [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Description { get; set; }

@@ -60,7 +60,10 @@ namespace MyVet.Web.Controllers
             var owner = await _dataContext.Owners
                 .Include(o => o.User)
                 .Include(o => o.Pets)
-                .FirstOrDefaultAsync(o => o.Id == id.Value);
+                .ThenInclude(p => p.PetType)
+                .Include(o => o.Pets)
+                .ThenInclude(p => p.Histories)
+                .FirstOrDefaultAsync(m => m.Id == id.Value);
             if (owner == null)
             {
                 return NotFound();
@@ -94,6 +97,7 @@ namespace MyVet.Web.Controllers
                 var owner = new Owner
                 {
                     Pets = new List<Pet>(),
+                    Agendas=new List<Agenda>(),
                     User = user,
                 };
 
@@ -183,7 +187,7 @@ namespace MyVet.Web.Controllers
         }
 
 
-        // GET: Owners/Delete/5
+        // Owners/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -193,30 +197,27 @@ namespace MyVet.Web.Controllers
 
             var owner = await _dataContext.Owners
                 .Include(o => o.User)
+                .Include(o => o.Pets)
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (owner == null)
             {
                 return NotFound();
             }
+            if (owner.Pets.Count>0)
+            {
+                //TODO: Message
+                return RedirectToAction($"{nameof(Index)}");
+            }
 
+            await _userHelper.DeleteUserAsync(owner.User.Email);
             _dataContext.Owners.Remove(owner);
             await _dataContext.SaveChangesAsync();
-            await _userHelper.DeleteUserAsync(owner.User.Email);
+            
             return RedirectToAction($"{nameof(Index)}");
         }
 
 
-        // POST: Owners/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var owner = await _dataContext.Owners.FindAsync(id);
-            _dataContext.Owners.Remove(owner);
-            await _dataContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+        
         private bool OwnerExists(int id)
         {
             return _dataContext.Owners.Any(e => e.Id == id);
@@ -225,13 +226,16 @@ namespace MyVet.Web.Controllers
         public async Task<IActionResult> AddPet(int? id)
         {
             if (id == null)
+            
             {
+                
                 return NotFound();
             }
 
             var owner = await _dataContext.Owners.FindAsync(id.Value);
             if (owner == null)
             {
+                
                 return NotFound();
             }
 
@@ -242,6 +246,7 @@ namespace MyVet.Web.Controllers
                 PetTypes = _combosHelper.GetComboPetTypes()
             };
 
+            
             return View(model);
         }
 
@@ -262,7 +267,8 @@ namespace MyVet.Web.Controllers
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.OwnerId}");
             }
-
+            
+            model.PetTypes = _combosHelper.GetComboPetTypes();
             return View(model);
         }
 
@@ -302,7 +308,7 @@ namespace MyVet.Web.Controllers
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.OwnerId}");
             }
-
+            model.PetTypes = _combosHelper.GetComboPetTypes();
             return View(model);
         }
 
@@ -393,6 +399,7 @@ namespace MyVet.Web.Controllers
                 return RedirectToAction($"{nameof(DetailsPet)}/{model.PetId}");
             }
 
+            model.ServiceTypes = _combosHelper.GetComboServiceTypes();
             return View(model);
         }
 
