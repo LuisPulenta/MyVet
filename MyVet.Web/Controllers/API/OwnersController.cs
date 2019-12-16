@@ -25,6 +25,11 @@ namespace MyVet.Web.Controllers.API
         [Route("GetOwnerByEmail")]
         public async Task<IActionResult> GetOwner(EmailRequest emailRequest)
         {
+            if (!ModelState.IsValid)
+                {
+                return BadRequest();
+                }   
+
             var owner = await _dataContext.Owners
                 .Include(o => o.User)
                 .Include(o => o.Pets)
@@ -32,10 +37,11 @@ namespace MyVet.Web.Controllers.API
                 .Include(o => o.Pets)
                 .ThenInclude(p => p.Histories)
                 .ThenInclude(h => h.ServiceType)
-                .FirstOrDefaultAsync(o => o.User.UserName.ToLower().Equals(emailRequest.Email.ToLower()));
+                .FirstOrDefaultAsync(o => o.User.UserName.ToLower() == emailRequest.Email.ToLower());
 
             var response = new OwnerResponse
             {
+                Id=owner.Id,
                 FirstName = owner.User.FirstName,
                 LastName = owner.User.LastName,
                 Address = owner.User.Address,
