@@ -16,5 +16,11 @@ namespace MyVet.Web.Helpers
         Task<bool> DeleteUserAsync(string email);
         Task<IdentityResult> UpdateUserAsync(User user);
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
+        Task<string> GenerateEmailConfirmationTokenAsync(User user);
+        Task<IdentityResult> ConfirmEmailAsync(User user, string token);
+        Task<User> GetUserByIdAsync(string userId);
+        Task<string> GeneratePasswordResetTokenAsync(User user);
+        Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
     }
 }

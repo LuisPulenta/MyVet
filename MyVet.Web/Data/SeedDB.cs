@@ -59,6 +59,9 @@ namespace MyVet.Web.Data
                 await _userHelper.AddUserToRoleAsync(user, role);
             }
 
+            var token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+            await _userHelper.ConfirmEmailAsync(user, token);
+
             return user;
         }
 
