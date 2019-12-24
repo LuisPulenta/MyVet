@@ -30,14 +30,14 @@ namespace MyVet.Prism.ViewModels
                 Title = $"Pets of: {_owner.FullName}";
                 Pets = new ObservableCollection<PetItemViewModel>(_owner.Pets.Select(p => new PetItemViewModel(_navigationService)
                 {
-                    Born=p.Born,
-                    Histories=p.Histories,
-                    ImageUrl=p.ImageUrl,
-                    Name=p.Name,
-                    PetType=p.PetType,
-                    Race=p.Race,
-                    Remarks=p.Remarks,
-                    Id=p.Id,
+                    Born = p.Born,
+                    Histories = p.Histories,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    PetType = p.PetType,
+                    Race = p.Race,
+                    Remarks = p.Remarks,
+                    Id = p.Id,
                 }).ToList());
             }
         }

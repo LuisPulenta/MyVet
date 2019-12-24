@@ -34,23 +34,7 @@ namespace MyVet.Prism.ViewModels
             set => SetProperty(ref _histories, value);
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            if (parameters.ContainsKey("pet"))
-            {
-                Pet = parameters.GetValue<PetResponse>("pet");
-                Histories = new ObservableCollection<HistoryItemViewModel>(Pet.Histories.Select(h => new HistoryItemViewModel(_navigationService)
-                {
-                    Date = h.Date,
-                    Description = h.Description,
-                    Id = h.Id,
-                    Remarks = h.Remarks,
-                    ServiceType = h.ServiceType
-                }).ToList());
-            }
-        }
+       
         private void LoadHistories()
         {
             Histories = new ObservableCollection<HistoryItemViewModel>(Pet.Histories.Select(h => new HistoryItemViewModel(_navigationService)

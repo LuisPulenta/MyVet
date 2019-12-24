@@ -32,8 +32,8 @@
                 VerticalOptions="EndAndExpand"
                 Text="Login" />
       </StackLayout>
-      <busyindicator:SfBusyIndicator AnimationType="Gear"
-                                     AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+      <busyindicator:SfBusyIndicator AnimationType="RollingBall"
+                                     AbsoluteLayout.LayoutBounds=".5,.9,.5,.5"
                                      AbsoluteLayout.LayoutFlags="All"
                                      BackgroundColor="Transparent"
                                      HorizontalOptions="Center"

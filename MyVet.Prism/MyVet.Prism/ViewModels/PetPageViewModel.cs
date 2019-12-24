@@ -10,7 +10,7 @@ namespace MyVet.Prism.ViewModels
         private PetResponse _pet;
         public PetPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            Title = "";
+            Title = "Details";
         }
         public PetResponse Pet
         {
@@ -24,7 +24,6 @@ namespace MyVet.Prism.ViewModels
             //if (parameters.ContainsKey("pet"))
             //{
             //    Pet = parameters.GetValue<PetResponse>("pet");
-            Title = Pet.Name;
             //}
         }
 

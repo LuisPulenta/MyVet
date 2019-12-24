@@ -18,6 +18,7 @@ namespace MyVet.Prism.ViewModels
 
         private async void SelectPet()
         {
+          
             Settings.Pet = JsonConvert.SerializeObject(this);
             await _navigationService.NavigateAsync("PetTabbedPage");
         }

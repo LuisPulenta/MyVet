@@ -30,17 +30,19 @@
                 </Grid.ColumnDefinitions>
                 <ffimageloading:CachedImage Grid.Column="0"
                                             Source="{Binding ImageUrl}"
+                                            Aspect="AspectFit"
                                             LoadingPlaceholder="LoaderImage"
                                             ErrorPlaceholder="ErrorImage"
                                             CacheDuration="50"
                                             RetryCount="3"
                                             RetryDelay="600"
                                             DownsampleToViewSize="true"
-                                            WidthRequest="100" />
+                                            WidthRequest="80" />
                 <StackLayout Grid.Column="1"
                              VerticalOptions="Center">
                   <Label FontAttributes="Bold"
                          Text="Nombre"
+                         VerticalOptions="Start"
                          TextColor="Blue"></Label>
                   <Label FontAttributes="Bold"
                          Text="Raza"
@@ -52,6 +54,7 @@
                 <StackLayout Grid.Column="2"
                              VerticalOptions="Center">
                   <Label Text="{Binding Name}"
+                         VerticalOptions="Start"
                          FontAttributes="Bold"
                          TextColor="Red"></Label>
                   <Label Text="{Binding Race}"
