@@ -1,5 +1,7 @@
-﻿using MyVet.Common.Models;
+﻿using MyVet.Common.Helpers;
+using MyVet.Common.Models;
 using MyVet.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -111,14 +113,21 @@ namespace MyVet.Prism.ViewModels
             }
 
             var owner = response2.Result;
-            var parameters = new NavigationParameters
-            {
-                {"owner",owner}
-            };
+            Settings.Owner = JsonConvert.SerializeObject(owner);
+            Settings.Token = JsonConvert.SerializeObject(token);
 
-            await _navigationService.NavigateAsync("PetsPage", parameters);
+
+
+            //var parameters = new NavigationParameters
+            //{
+            //    {"owner",owner}
+            //};
+
+            //await _navigationService.NavigateAsync("PetsPage");
             IsRunning = false;
             IsEnabled = true;
+            await _navigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
+            
         }
     }
 }
