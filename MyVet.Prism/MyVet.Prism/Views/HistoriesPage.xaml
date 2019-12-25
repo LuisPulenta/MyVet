@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.HistoriesPage"
              IconImageSource="ic_action_list_alt"
+             BackgroundColor="{StaticResource colorBackground}"
              Title="{Binding Title}">
   <StackLayout Padding="10">
     <Grid>

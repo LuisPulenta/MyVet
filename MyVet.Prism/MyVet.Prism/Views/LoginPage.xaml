@@ -5,6 +5,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.LoginPage"
+             BackgroundColor="{StaticResource colorBackground}"
              Title="{Binding Title}">
   <ScrollView>
     <AbsoluteLayout>
@@ -22,22 +23,25 @@
         <Entry IsPassword="True"
                Placeholder="Enter your password..."
                Text="{Binding Password}" />
-       
-        <Button BackgroundColor="Blue"
-                TextColor="White"
-                CornerRadius="23"
-                HeightRequest="46"
-                Command="{Binding LoginCommand}"
-                IsEnabled="{Binding IsEnabled}"
-                VerticalOptions="EndAndExpand"
-                Text="Login" />
+        <StackLayout
+          Orientation="Horizontal"
+                     VerticalOptions="EndAndExpand">
+          <Button Command="{Binding LoginCommand}"
+                  IsEnabled="{Binding IsEnabled}"
+                  Text="Login" />
+          <Button Command="{Binding RegisterCommand}"
+                  IsEnabled="{Binding IsEnabled}"
+                  Style="{StaticResource secondaryButton}"
+                  Text="Register" />
+        </StackLayout>
+        
       </StackLayout>
       <busyindicator:SfBusyIndicator AnimationType="RollingBall"
                                      AbsoluteLayout.LayoutBounds=".5,.9,.5,.5"
                                      AbsoluteLayout.LayoutFlags="All"
                                      BackgroundColor="Transparent"
                                      HorizontalOptions="Center"
-                                     TextColor="Blue"
+                                     TextColor="{StaticResource colorDanger}"
                                      IsVisible="{Binding IsRunning}"
                                      Title="Cargando..."
                                      VerticalOptions="Center"
