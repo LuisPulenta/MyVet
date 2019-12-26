@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet.Prism.Views.RegisterPage"
+             BackgroundColor="{StaticResource colorBackground}"
+             Title="{Binding Title}">
+  <ScrollView>
+    <AbsoluteLayout>
+      <StackLayout Padding="10"
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"
+                   AbsoluteLayout.LayoutFlags="All">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Label Grid.Row="0"
+                 Grid.Column="0"
+                 Text="Documento:"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="0"
+                 Grid.Column="1"
+                 Placeholder="Ingrese Documento..."
+                 Text="{Binding Document}" />
+          <Label Grid.Row="1"
+                 Grid.Column="0"
+                 Text="Nombre:"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="1"
+                 Grid.Column="1"
+                 Placeholder="Ingrese Nombre..."
+                 Text="{Binding FirstName}" />
+          <Label Grid.Row="2"
+                 Grid.Column="0"
+                 Text="Apellido:"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="2"
+                 Grid.Column="1"
+                 Placeholder="Ingrese Apellido..."
+                 Text="{Binding LastName}" />
+          <Label Grid.Row="3"
+                 Grid.Column="0"
+                 Text="Domicilio:"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="3"
+                 Grid.Column="1"
+                 Placeholder="Ingrese Domicilio..."
+                 Text="{Binding Address}" />
+          <Label Grid.Row="4"
+                 Grid.Column="0"
+                 Text="Email"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="4"
+                 Grid.Column="1"
+                 Keyboard="Email"
+                 Placeholder="Ingrese Email..."
+                 Text="{Binding Email}" />
+          <Label Grid.Row="5"
+                 Grid.Column="0"
+                 Text="Teléfono:"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="5"
+                 Grid.Column="1"
+                 Keyboard="Telephone"
+                 Placeholder="Ingrese Teléfono..."
+                 Text="{Binding Phone}" />
+          <Label Grid.Row="6"
+                 Grid.Column="0"
+                 Text="Password:"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="6"
+                 Grid.Column="1"
+                 IsPassword="True"
+                 Placeholder="Ingrese Password:"
+                 Text="{Binding Password}" />
+          <Label Grid.Row="7"
+                 Grid.Column="0"
+                 Text="Confirm. Password:"
+                 VerticalOptions="Center" />
+          <Entry Grid.Row="7"
+                 Grid.Column="1"
+                 IsPassword="True"
+                 Placeholder="Ingrese confirmación de Password..."
+                 Text="{Binding PasswordConfirm}" />
+        </Grid>
+       
+        <Button Command="{Binding RegisterCommand}"
+                HorizontalOptions="FillAndExpand"
+                IsEnabled="{Binding IsEnabled}"
+                VerticalOptions="EndAndExpand"
+                Text="Register" />
+      </StackLayout>
+      <busyindicator:SfBusyIndicator AnimationType="RollingBall"
+                                     AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                                     AbsoluteLayout.LayoutFlags="All"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="Center"
+                                     TextColor="{StaticResource colorDanger}"
+                                     IsVisible="{Binding IsRunning}"
+                                     Title="Cargando..."
+                                     VerticalOptions="Center"
+                                     ViewBoxWidth="50"
+                                     ViewBoxHeight="50" />
+    </AbsoluteLayout>
+      
+  </ScrollView>
+</ContentPage>

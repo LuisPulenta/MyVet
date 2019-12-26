@@ -14,7 +14,7 @@
                    AbsoluteLayout.LayoutFlags="All">
         <Image Margin="20"
                Source="logo"
-               WidthRequest="180"></Image>
+               WidthRequest="140"></Image>
         <Label Text="Email" />
         <Entry Keyboard="Email"
                Placeholder="Enter your email..."
@@ -23,6 +23,19 @@
         <Entry IsPassword="True"
                Placeholder="Enter your password..."
                Text="{Binding Password}" />
+        <StackLayout HorizontalOptions="Center"
+                     Orientation="Horizontal">
+          <Label Text="Remember me in this device"
+                 VerticalOptions="Center"/>
+          <CheckBox IsChecked="{Binding IsRemember}" />
+        </StackLayout>
+        <Label HorizontalOptions="Center"
+               Text="Forgot your password?"
+               TextColor="{StaticResource colorDanger}">
+          <Label.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+          </Label.GestureRecognizers>
+        </Label>
         <StackLayout
           Orientation="Horizontal"
                      VerticalOptions="EndAndExpand">
