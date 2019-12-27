@@ -21,7 +21,7 @@ namespace MyVet.Prism.ViewModels
         {
             if (PageName.Equals("LoginPage"))
             {
-                //Settings.IsRemembered = false;
+                Settings.IsRemembered = false;
                 await _navigationService.NavigateAsync("/NavigationPage/LoginPage");
                 return;
             }

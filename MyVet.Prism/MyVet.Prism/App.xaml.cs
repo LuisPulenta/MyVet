@@ -5,6 +5,10 @@ using MyVet.Prism.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MyVet.Common.Services;
+using Newtonsoft.Json;
+using MyVet.Common.Helpers;
+using System;
+using MyVet.Common.Models;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MyVet.Prism
@@ -29,7 +33,17 @@ namespace MyVet.Prism
             //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTUwMTE0QDMxMzcyZTMzMmUzMGZqaW4vVHBneGNFQThOZTFzZDY0dTM4V21Zd2hpd2VtMmRnMHBTaHhjT1U9");
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            //await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            if (Settings.IsRemembered && token?.Expiration > DateTime.Now)
+            {
+                await NavigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
+            }
+
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -49,6 +63,8 @@ namespace MyVet.Prism
 
             containerRegistry.RegisterForNavigation<VeterinaryMasterDetailPage, VeterinaryMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
+            containerRegistry.RegisterForNavigation<RememberPasswordPage, RememberPasswordPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>();
         }
     }
 }
