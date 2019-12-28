@@ -7,6 +7,10 @@
              x:Class="MyVet.Prism.Views.PetsPage"
              BackgroundColor="{StaticResource colorBackground}"
              Title="{Binding Title}">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Icon="ic_action_add_circle"
+                 Command="{Binding AddPetCommand}" />
+  </ContentPage.ToolbarItems>
   <StackLayout Padding="10">
     <ListView HasUnevenRows="True"
               SeparatorVisibility="None"
@@ -59,7 +63,7 @@
                          TextColor="Red"></Label>
                   <Label Text="{Binding Race}"
                          TextColor="Black"></Label>
-                  <Label Text="{Binding Born, StringFormat='{0:yyyy/MM/dd}'}"
+                  <Label Text="{Binding Born, StringFormat='{0:dd/MM/yyyy}'}"
                          TextColor="Black"></Label>
                 </StackLayout>
                 <Image Grid.Column="3"
