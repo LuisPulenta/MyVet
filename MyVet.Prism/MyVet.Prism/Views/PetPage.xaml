@@ -8,75 +8,84 @@
              IconImageSource="ic_action_pets.png"
              BackgroundColor="{StaticResource colorBackground}"
              Title="{Binding Title}">
-  <ScrollView>
-    <StackLayout Padding="5">
-      <ffimageloading:CachedImage Aspect="AspectFit"
-                                  Source="{Binding Pet.ImageUrl}"
-                                  LoadingPlaceholder="LoaderImage"
-                                  ErrorPlaceholder="ErrorImage"
-                                  CacheDuration="50"
-                                  RetryCount="3"
-                                  RetryDelay="600"
-                                  DownsampleToViewSize="true"
-                                  WidthRequest="300" />
-      <Grid Grid.Column="0">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="Auto" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0"
-               Grid.Column="0"
-               Text="Nombre: "
-               FontAttributes="Bold"
-               TextColor="Blue"></Label>
-        <Label Grid.Row="0"
-               Grid.Column="1"
-               Text="{Binding Pet.Name}"
-               TextColor="Black"></Label>
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               Text="Raza: "
-               FontAttributes="Bold"
-               TextColor="Blue"></Label>
-        <Label Grid.Row="1"
-               Grid.Column="1"
-               Text="{Binding Pet.Race}"
-               TextColor="Black"></Label>
-        <Label Grid.Row="2"
-               Grid.Column="0"
-               Text="Fec.Nac.: "
-               FontAttributes="Bold"
-               TextColor="Blue"></Label>
-        <Label Grid.Row="2"
-               Grid.Column="1"
-               Text="{Binding Pet.Born, StringFormat='{0:yyyy/MM/dd}'}"
-               TextColor="Black"></Label>
-        <Label Grid.Row="3"
-               Grid.Column="0"
-               Text="Comentarios: "
-               FontAttributes="Bold"
-               TextColor="Blue"></Label>
-        <Label Grid.Row="3"
-               Grid.Column="1"
-               Text="{Binding Pet.Remarks}"
-               TextColor="Black"></Label>
-        <Label Grid.Row="4"
-               Grid.Column="0"
-               Text="Tipo: "
-               FontAttributes="Bold"
-               TextColor="Blue"></Label>
-        <Label Grid.Row="4"
-               Grid.Column="1"
-               Text="{Binding Pet.PetType}"
-               TextColor="Black"></Label>
-      </Grid>
-    </StackLayout>
-  </ScrollView>
+  <StackLayout Padding="5">
+    <ScrollView>
+      <StackLayout >
+        <ffimageloading:CachedImage Aspect="AspectFit"
+                                    Source="{Binding Pet.ImageUrl}"
+                                    LoadingPlaceholder="LoaderImage"
+                                    ErrorPlaceholder="ErrorImage"
+                                    CacheDuration="50"
+                                    RetryCount="3"
+                                    RetryDelay="600"
+                                    DownsampleToViewSize="true"
+                                    WidthRequest="300" />
+        <Grid Grid.Column="0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <Label Grid.Row="0"
+                 Grid.Column="0"
+                 Text="Nombre: "
+                 FontAttributes="Bold"
+                 TextColor="Blue"></Label>
+          <Label Grid.Row="0"
+                 Grid.Column="1"
+                 Text="{Binding Pet.Name}"
+                 TextColor="Black"></Label>
+          <Label Grid.Row="1"
+                 Grid.Column="0"
+                 Text="Raza: "
+                 FontAttributes="Bold"
+                 TextColor="Blue"></Label>
+          <Label Grid.Row="1"
+                 Grid.Column="1"
+                 Text="{Binding Pet.Race}"
+                 TextColor="Black"></Label>
+          <Label Grid.Row="2"
+                 Grid.Column="0"
+                 Text="Fec.Nac.: "
+                 FontAttributes="Bold"
+                 TextColor="Blue"></Label>
+          <Label Grid.Row="2"
+                 Grid.Column="1"
+                 Text="{Binding Pet.Born, StringFormat='{0:yyyy/MM/dd}'}"
+                 TextColor="Black"></Label>
+          <Label Grid.Row="3"
+                 Grid.Column="0"
+                 Text="Tipo: "
+                 FontAttributes="Bold"
+                 TextColor="Blue"></Label>
+          <Label Grid.Row="3"
+                 Grid.Column="1"
+                 Text="{Binding Pet.PetType}"
+                 TextColor="Black"></Label>
+          <Label Grid.Row="4"
+                 Grid.Column="0"
+                 Text="Comentarios: "
+                 FontAttributes="Bold"
+                 TextColor="Blue"></Label>
+          <Label Grid.Row="4"
+                 Grid.Column="1"
+                 Text="{Binding Pet.Remarks}"
+                 TextColor="Black"></Label>
+         
+        </Grid>
+      </StackLayout>
+    </ScrollView>
+    <Button
+      Command="{Binding EditPetCommand}"
+      VerticalOptions="EndAndExpand"
+      Text="Edit Pet"
+      >
+    </Button>
+  </StackLayout>
 </ContentPage>

@@ -1,17 +1,22 @@
 ﻿using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Navigation;
 
 namespace MyVet.Prism.ViewModels
 {
     public class PetPageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private PetResponse _pet;
+        private DelegateCommand _editPetCommand;
         public PetPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             Title = "Details";
+            _navigationService = navigationService;
         }
+        public DelegateCommand EditPetCommand => _editPetCommand ?? (_editPetCommand = new DelegateCommand(EditPet));
         public PetResponse Pet
         {
             get => _pet;
@@ -25,6 +30,14 @@ namespace MyVet.Prism.ViewModels
             //{
             //    Pet = parameters.GetValue<PetResponse>("pet");
             //}
+        }
+        private async void EditPet()
+        {
+            var parameters = new NavigationParameters
+            {
+                { "pet", _pet }
+            };
+            await _navigationService.NavigateAsync("EditPetPage", parameters);
         }
 
     }

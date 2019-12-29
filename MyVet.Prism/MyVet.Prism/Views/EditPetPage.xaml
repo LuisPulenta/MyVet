@@ -4,6 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.EditPetPage"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              BackgroundColor="{StaticResource colorBackground}"
              Title="{Binding Title}">
@@ -13,12 +14,23 @@
         <StackLayout 
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All">
-          <Image HeightRequest="150"
-                 Source="{Binding ImageSource}">
-            <Image.GestureRecognizers>
+          <ffimageloading:CachedImage 
+                                      Aspect="AspectFit"
+                                      Source="{Binding ImageSource}"
+                                      LoadingPlaceholder="LoaderImage"
+                                      ErrorPlaceholder="ErrorImage"
+                                      CacheDuration="50"
+                                      RetryCount="3"
+                                      RetryDelay="600"
+                                      DownsampleToViewSize="true"
+                                      WidthRequest="150">
+            <ffimageloading:CachedImage.GestureRecognizers>
               <TapGestureRecognizer Command="{Binding ChangeImageCommand}" />
-            </Image.GestureRecognizers>
-          </Image>
+            </ffimageloading:CachedImage.GestureRecognizers>
+          </ffimageloading:CachedImage>
+          
+          
+         
           <Label FontSize="Micro"
                  HorizontalOptions="Center"
                  Text="Toque la imagen para cambiarla" />
