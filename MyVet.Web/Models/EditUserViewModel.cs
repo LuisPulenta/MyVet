@@ -27,5 +27,11 @@ namespace MyVet.Web.Models
         [Display(Name = "Phone Number")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string PhoneNumber { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Latitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Longitude { get; set; }
     }
 }

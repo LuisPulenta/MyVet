@@ -29,5 +29,12 @@ namespace MyVet.Web.Data.Entities
 
         [Display(Name = "Nombre Completo y Documento")]
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
+
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Latitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Longitude { get; set; }
+
     }
 }
