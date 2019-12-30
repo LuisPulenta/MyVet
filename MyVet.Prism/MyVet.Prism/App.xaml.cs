@@ -65,6 +65,7 @@ namespace MyVet.Prism
             containerRegistry.RegisterForNavigation<RememberPasswordPage, RememberPasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<EditPetPage, EditPetPageViewModel>();
+            containerRegistry.RegisterForNavigation<AssignModifyAgendaPage, AssignModifyAgendaPageViewModel>();
         }
     }
 }

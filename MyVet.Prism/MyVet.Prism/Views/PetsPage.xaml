@@ -14,6 +14,8 @@
   <StackLayout Padding="10">
     <ListView HasUnevenRows="True"
               SeparatorVisibility="None"
+              IsPullToRefreshEnabled="True"
+              RefreshCommand="{Binding RefreshPetsCommand}"
               IsRefreshing="{Binding IsRefreshing}"
               ItemsSource="{Binding Pets}">
       <ListView.ItemTemplate>

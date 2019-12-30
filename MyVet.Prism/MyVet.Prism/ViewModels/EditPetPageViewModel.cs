@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Common.Services;
@@ -27,8 +28,12 @@ namespace MyVet.Prism.ViewModels
         private PetTypeResponse _petType;
         private MediaFile _file;
         private DelegateCommand _changeImageCommand;
+        private DelegateCommand _saveCommand;
+        private DelegateCommand _deleteCommand;
 
 
+        public DelegateCommand DeleteCommand => _deleteCommand ?? (_deleteCommand = new DelegateCommand(DeleteAsync));
+        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(SaveAsync));
 
         public DelegateCommand ChangeImageCommand => _changeImageCommand ?? (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
 
@@ -189,5 +194,149 @@ namespace MyVet.Prism.ViewModels
                 });
             }
         }
+
+        private async void SaveAsync()
+        {
+            var isValid = await ValidateDataAsync();
+            if (!isValid)
+            {
+                return;
+            }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            var owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
+
+            byte[] imageArray = null;
+            if (_file != null)
+            {
+                imageArray = FilesHelper.ReadFully(_file.GetStream());
+            }
+
+            var petRequest = new PetRequest
+            {
+                Born = Pet.Born,
+                Id = Pet.Id,
+                ImageArray = imageArray,
+                Name = Pet.Name,
+                OwnerId = owner.Id,
+                PetTypeId = PetType.Id,
+                Race = Pet.Race,
+                Remarks = Pet.Remarks
+            };
+
+            Response<object> response;
+            if (IsEdit)
+            {
+                response = await _apiService.PutAsync(
+                    url,
+                    "api",
+                    "/Pets",
+                    petRequest.Id,
+                    petRequest,
+                    "bearer",
+                    token.Token);
+            }
+            else
+            {
+                response = await _apiService.PostAsync(
+                    url,
+                    "api",
+                    "/Pets",
+                    petRequest,
+                    "bearer",
+                    token.Token);
+            }
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error", response.Message, "Accept");
+                return;
+            }
+
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                string.Format("Pet ", IsEdit ? "Edited Ok" : "Created Ok"),   //REVISAR que no anda
+                
+                "Accept");
+
+            await PetsPageViewModel.GetInstance().UpdateOwnerAsync();
+            await _navigationService.GoBackToRootAsync();
+        }
+
+        private async Task<bool> ValidateDataAsync()
+        {
+            if (string.IsNullOrEmpty(Pet.Name))
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Debe ingresar Nombre", "Accept");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Pet.Race))
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Debe ingresar Raza", "Accept");
+                return false;
+            }
+
+            if (PetType == null)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Debe ingresar Tipo de Mascota", "Accept");
+                return false;
+            }
+
+            return true;
+        }
+
+        private async void DeleteAsync()
+        {
+            var answer = await App.Current.MainPage.DisplayAlert(
+                "Confirmar",
+                "Está seguro de borrar esta mascota?",
+                "Si",
+                "No");
+
+            if (!answer)
+            {
+                return;
+            }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            var response = await _apiService.DeleteAsync(
+                url,
+                "api",
+                "/Pets",
+                Pet.Id,
+                "bearer",
+                token.Token);
+
+            if (!response.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+
+            await PetsPageViewModel.GetInstance().UpdateOwnerAsync();
+
+            IsRunning = false;
+            IsEnabled = true;
+            await _navigationService.GoBackToRootAsync();
+        }
+
     }
 }

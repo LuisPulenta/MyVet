@@ -8,6 +8,8 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              BackgroundColor="{StaticResource colorBackground}"
              Title="{Binding Title}">
+  
+  
   <StackLayout Padding="10">
     <ScrollView>
       <AbsoluteLayout>
@@ -16,7 +18,7 @@
                      AbsoluteLayout.LayoutFlags="All">
           <ffimageloading:CachedImage 
                                       Aspect="AspectFit"
-                                      Source="{Binding ImageSource}"
+                                      Source="{Binding Pet.ImageSource}"
                                       LoadingPlaceholder="LoaderImage"
                                       ErrorPlaceholder="ErrorImage"
                                       CacheDuration="50"
@@ -103,7 +105,8 @@
                                        ViewBoxHeight="50" />
       </AbsoluteLayout>
     </ScrollView>
-    <StackLayout Orientation="Horizontal">
+    <StackLayout Orientation="Horizontal"
+                 VerticalOptions="EndAndExpand">
       <Button Command="{Binding SaveCommand}"
               IsEnabled="{Binding IsEnabled}"
               Text="Guardar" />
