@@ -55,6 +55,7 @@ namespace MyVet.Prism.ViewModels
             IsEnabled = true;
             _navigationService = navigationService;
             _apiService = apiService;
+            ImageSource = "nophoto";
         }
 
         public bool IsRunning
@@ -94,7 +95,7 @@ namespace MyVet.Prism.ViewModels
             if (parameters.ContainsKey("pet"))
             {
                 Pet = parameters.GetValue<PetResponse>("pet");
-                ImageSource = Pet.ImageUrl;
+                ImageSource = Pet.ImageFullPath;
                 IsEdit = true;
                 Title = "Edit Pet";
             }
@@ -261,11 +262,20 @@ namespace MyVet.Prism.ViewModels
                 return;
             }
 
-            await App.Current.MainPage.DisplayAlert(
-                "Ok",
-                string.Format("Pet ", IsEdit ? "Edited Ok" : "Created Ok"),   //REVISAR que no anda
+            if (IsEdit)
+            {
+                await App.Current.MainPage.DisplayAlert("Ok","Pet Edited Ok","Accept");
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Ok", "Pet Created Ok", "Accept");
+            }
+
+            //await App.Current.MainPage.DisplayAlert(
+            //    "Ok",
+            //    string.Format("Pet ", IsEdit ? "Edited Ok" : "Created Ok"),   //REVISAR que no anda
                 
-                "Accept");
+            //    "Accept");
 
             await PetsPageViewModel.GetInstance().UpdateOwnerAsync();
             await _navigationService.GoBackToRootAsync();
@@ -326,7 +336,7 @@ namespace MyVet.Prism.ViewModels
                 IsEnabled = true;
                 await App.Current.MainPage.DisplayAlert(
                     "Error",
-                    response.Message,
+                    "Esta mascota tiene Historias, no se puede borrar", //response.Message,
                     "Accept");
                 return;
             }

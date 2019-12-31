@@ -20,5 +20,9 @@ namespace MyVet.Common.Models
         public string PetType { get; set; }
 
         public ICollection<HistoryResponse> Histories { get; set; }
+
+        public string ImageFullPath => string.IsNullOrEmpty(ImageUrl)
+            ? "noimage"//null
+            : $"{ImageUrl.Substring(0)}";
     }
 }

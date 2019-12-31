@@ -2,34 +2,51 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.AssignModifyAgendaPage"
              Title="{Binding Title}">
   <StackLayout Padding="10">
-    <Label Text="Agenda For:" />
-    <Label FontAttributes="Bold"
-           FontSize="Medium"
-           Text="{Binding Agenda.Date, StringFormat='{0:yyyy/MM/dd HH:mm}'}" />
-    <Label Text="Pet:" />
-    <Picker ItemDisplayBinding="{Binding Name}"
-            ItemsSource="{Binding Pets}"
-            SelectedItem="{Binding Pet}"
-            Title="Select Pet..." />
-    <Label Text="Remarks:" />
-    <Editor HeightRequest="70"
-            Text="{Binding Agenda.Remarks}" />
-    <ActivityIndicator IsRunning="{Binding IsRunning}"
-                       VerticalOptions="CenterAndExpand" />
-    <StackLayout Orientation="Horizontal">
+      <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All"
+                     VerticalOptions="EndAndExpand">
+          <Label Text="Agenda For:" />
+          <Label FontAttributes="Bold"
+                 FontSize="Medium"
+                 Text="{Binding Agenda.DateLocal, StringFormat='{0:yyyy/MM/dd HH:mm}'}" />
+          <Label Text="Pet:" />
+          <Picker ItemDisplayBinding="{Binding Name}"
+                  ItemsSource="{Binding Pets}"
+                  SelectedItem="{Binding Pet}"
+                  Title="Select Pet..." />
+          <Label Text="Remarks:" />
+          <Editor HeightRequest="70"
+                  Text="{Binding Agenda.Remarks}" />
+          <busyindicator:SfBusyIndicator AnimationType="RollingBall"
+                                         AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                                         AbsoluteLayout.LayoutFlags="All"
+                                         BackgroundColor="Transparent"
+                                         HorizontalOptions="Center"
+                                         TextColor="{StaticResource colorDanger}"
+                                         IsVisible="{Binding IsRunning}"
+                                         Title="Guardando..."
+                                         VerticalOptions="Center"
+                                         ViewBoxWidth="50"
+                                         ViewBoxHeight="50" />
+        </StackLayout>
+      </AbsoluteLayout>
+    <StackLayout Orientation="Horizontal"
+                 VerticalOptions="EndAndExpand">
       <Button Command="{Binding AssignCommand}"
               HorizontalOptions="FillAndExpand"
               IsEnabled="{Binding IsEnabled}"
-              Text="Assign:" />
+              Text="Asignar" />
       <Button Command="{Binding CancelCommand}"
               HorizontalOptions="FillAndExpand"
               IsEnabled="{Binding IsEnabled}"
               Style="{StaticResource secondaryButton}"
-              Text="Cancel:" />
+              Text="Desasignar" />
     </StackLayout>
   </StackLayout>
 </ContentPage>

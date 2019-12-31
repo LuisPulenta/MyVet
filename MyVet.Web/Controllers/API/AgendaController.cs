@@ -53,6 +53,7 @@ namespace MyVet.Web.Controllers.API
                 {
                     Date = agenda.Date,
                     Id = agenda.Id,
+                    //Owner = _converterHelper.ToOwnerResposne(await _dataContext.Owners.FirstOrDefaultAsync(a => a.Id == agenda.Owner.Id)),
                     IsAvailable = agenda.IsAvailable
                 };
 

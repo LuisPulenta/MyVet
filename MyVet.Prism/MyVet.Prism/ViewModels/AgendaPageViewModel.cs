@@ -26,6 +26,7 @@ namespace MyVet.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
             LoadAgenda();
+            IsRefreshing = false;
         }
 
         public DelegateCommand RefreshPetsCommand => _refreshPetsCommand ?? (_refreshPetsCommand = new DelegateCommand(LoadAgenda));

@@ -113,6 +113,7 @@ namespace MyVet.Web.Helpers
 
             return new OwnerResponse
             {
+                Id=owner.Id,
                 Address = owner.User.Address,
                 Document = owner.User.Document,
                 Email = owner.User.Email,

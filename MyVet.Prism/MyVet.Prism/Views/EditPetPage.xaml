@@ -18,7 +18,7 @@
                      AbsoluteLayout.LayoutFlags="All">
           <ffimageloading:CachedImage 
                                       Aspect="AspectFit"
-                                      Source="{Binding Pet.ImageSource}"
+                                      Source="{Binding ImageSource}"
                                       LoadingPlaceholder="LoaderImage"
                                       ErrorPlaceholder="ErrorImage"
                                       CacheDuration="50"

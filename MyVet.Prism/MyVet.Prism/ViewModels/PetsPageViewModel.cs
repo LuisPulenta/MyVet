@@ -58,7 +58,7 @@ namespace MyVet.Prism.ViewModels
                 Born = p.Born,
                 Histories = p.Histories,
                 Id = p.Id,
-                ImageUrl = p.ImageUrl,
+                ImageUrl = p.ImageFullPath,
                 Name = p.Name,
                 PetType = p.PetType,
                 Race = p.Race,
