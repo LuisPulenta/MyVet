@@ -31,6 +31,7 @@
                          WidthRequest="50" />
                   <Label Grid.Column="1"
                          FontAttributes="Bold"
+                         TextColor="{StaticResource colorFont}" 
                          VerticalOptions="Center"
                          Text="{Binding Title}" />
                 </Grid>
